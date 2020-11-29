@@ -1,5 +1,6 @@
 package garou.aos.project.config;
 
+import com.google.common.base.Predicates;
 import garou.aos.project.security.jwt.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -25,7 +26,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.any())
-                //.paths(PathSelectors.ant("/api/**"))
+                .paths(Predicates.not(PathSelectors.regex("/error"))) // Exclude Spring error controllers
                 .build();
     }
 
